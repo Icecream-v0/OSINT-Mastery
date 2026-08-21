@@ -25,9 +25,10 @@ Read it in order the first time. After that, use it as a reference.
 | `10-toolkit/` | The big tool list plus how to build your investigation rig |
 | `11-career/` | **Certifications and jobs — start here if you want the title** |
 | `12-methodology/` | Turning findings into intelligence products people trust |
-| [Verification & Analysis](12-methodology/verification-and-analysis.md) | Testing findings before you put your name on them |
-| [The OPSEC Checklist](13-reference/opsec-checklist.md) | Print this — run it before every session |
 | [The Cheat Sheet](13-reference/cheat-sheet.md) | Everything compressed into one page — dorks, tools, checklists |
+| [The Glossary](13-reference/glossary.md) | Sixty terms defined the way practitioners use them |
+| [Case Files](14-cases/famous-cases.md) | Skripal, MH17, Boston — how the famous investigations actually worked |
+| [Practice Lab](14-cases/practice-lab.md) | Ten hands-on drills with hidden answers. The gym. |
 
 ---
 

@@ -155,6 +155,80 @@ pre:hover .copybtn{opacity:1}
 }
 .skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#14100a;padding:8px 16px;z-index:100;border-radius:0 0 10px 0;font-weight:700;text-decoration:none}
 .skip:focus{left:0}
+/* ===== v6: command palette ===== */
+#palette{position:fixed;inset:0;background:rgba(4,8,14,.72);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding-top:12vh}
+#palette.open{display:flex}
+#pal-box{width:min(620px,92vw);background:var(--panel);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+#pal-input{width:100%;background:transparent;border:none;outline:none;color:var(--text);font-size:17px;padding:18px 20px;border-bottom:1px solid var(--border)}
+#pal-list{max-height:46vh;overflow-y:auto;padding:6px}
+.pal-item{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:none;border:none;color:var(--text);padding:11px 13px;border-radius:9px;cursor:pointer;font-size:14px}
+.pal-item .pi-ic{width:26px;height:26px;border-radius:7px;background:var(--panel2);display:flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+.pal-item .pi-sub{margin-left:auto;color:var(--dim);font-size:11px}
+.pal-item.sel,.pal-item:hover{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.pal-item.sel .pi-ic,.pal-item:hover .pi-ic{background:var(--accent);color:#14100a}
+#pal-hint{padding:9px 16px;border-top:1px solid var(--border);color:var(--dim);font-size:11px;display:flex;gap:14px}
+kbd{background:var(--panel2);border:1px solid var(--border);border-bottom-width:2px;border-radius:5px;padding:1px 6px;font-family:inherit;font-size:11px;color:var(--text)}
+/* ===== v6: toasts ===== */
+#toasts{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:300;display:flex;flex-direction:column;gap:9px;align-items:center;pointer-events:none}
+.toast{background:var(--panel2);border:1px solid var(--accent-dim);border-left:3px solid var(--accent);color:var(--text);padding:11px 20px;border-radius:11px;font-size:13.5px;box-shadow:0 10px 34px rgba(0,0,0,.45);animation:toastin .35s ease;max-width:88vw}
+.toast b{color:var(--accent)}
+@keyframes toastin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* ===== v6: quiz & flashcards ===== */
+.quiz-wrap{max-width:640px;margin:0 auto}
+.q-progress{height:7px;background:var(--panel2);border-radius:99px;overflow:hidden;margin:14px 0 26px}
+.q-progress i{display:block;height:100%;background:linear-gradient(90deg,var(--grp),#ffd166);border-radius:99px;transition:width .3s}
+.q-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:28px}
+.q-cat{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--grp);font-weight:700;margin-bottom:10px}
+.q-q{font-size:19px;color:var(--title);line-height:1.45;margin-bottom:22px}
+.q-opt{display:block;width:100%;text-align:left;background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:13px 16px;border-radius:11px;margin-bottom:10px;cursor:pointer;font-size:14.5px;transition:border-color .15s,transform .12s}
+.q-opt:hover{border-color:var(--grp);transform:translateX(3px)}
+.q-opt.right{border-color:#3fb950;background:rgba(63,185,80,.12)}
+.q-opt.wrong{border-color:#f85149;background:rgba(248,81,73,.1)}
+.q-opt:disabled{cursor:default;opacity:.85}
+.q-why{border-left:3px solid var(--grp);padding:10px 15px;background:color-mix(in srgb,var(--grp) 7%,transparent);border-radius:0 9px 9px 0;font-size:13.5px;margin:14px 0 4px}
+.q-next{margin-top:18px;background:linear-gradient(135deg,var(--accent),#d29922);color:#14100a;border:none;padding:11px 26px;border-radius:10px;font-weight:700;cursor:pointer;font-size:14px}
+.q-score-big{font-size:52px;font-weight:800;color:var(--title);text-align:center;margin:10px 0}
+.fc-stage{perspective:1100px;max-width:520px;margin:26px auto}
+.fc-card{position:relative;width:100%;min-height:230px;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,.1,.2,1);cursor:pointer}
+.fc-card.flip{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--panel);border:1px solid var(--border);border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center}
+.fc-face.back{transform:rotateY(180deg);border-color:color-mix(in srgb,var(--grp) 40%,var(--border))}
+.fc-term{font-size:25px;font-weight:800;color:var(--title)}
+.fc-hint{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;color:var(--dim);margin-top:14px}
+.fc-def{font-size:15.5px;line-height:1.65;color:var(--text)}
+.fc-nav{display:flex;justify-content:center;gap:11px;margin-top:20px}
+.fc-btn{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:9px 18px;border-radius:9px;cursor:pointer;font-size:13.5px}
+.fc-btn:hover{border-color:var(--grp)}
+.fc-count{text-align:center;color:var(--dim);font-size:12.5px;margin-top:12px}
+/* ===== v6: home extras ===== */
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:13px;margin:0 0 38px}
+.tile{border:1px solid var(--border);border-radius:13px;background:var(--panel);padding:17px;text-decoration:none;color:var(--text);display:block;transition:transform .14s,border-color .14s}
+.tile:hover{transform:translateY(-2px);border-color:var(--accent-dim)}
+.tile .ti{font-size:21px;margin-bottom:8px}
+.tile b{display:block;color:var(--title);font-size:14.5px;margin-bottom:3px}
+.tile span{font-size:12px;color:var(--dim)}
+.badges-row{display:flex;flex-wrap:wrap;gap:9px;margin:6px 0 40px}
+.badge-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--border);border-radius:99px;padding:5px 13px;font-size:12px;color:var(--dim);background:var(--panel)}
+.badge-chip.got{border-color:var(--accent-dim);color:var(--text);background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.badge-chip.got b{color:var(--accent)}
+.starred-list{margin:0 0 36px;padding:0;list-style:none}
+.starred-list a{display:flex;justify-content:space-between;padding:9px 14px;border:1px solid var(--border);border-radius:10px;margin-bottom:7px;text-decoration:none;color:var(--text);font-size:14px;background:var(--panel)}
+.starred-list a:hover{border-color:var(--accent-dim)}
+.starred-list .x{color:var(--dim);font-size:12px}
+/* ===== v6: glossary tooltip + misc ===== */
+.gloss{border-bottom:1.5px dotted var(--grp);cursor:help;position:relative}
+.rt-meta .pill.btn-pill{cursor:pointer;user-select:none}
+.rt-meta .pill.btn-pill:hover{border-color:var(--accent-dim);color:var(--text)}
+#fs-ctl{display:inline-flex;gap:4px;margin-left:auto}
+#fs-ctl button{background:none;border:1px solid var(--border);color:var(--dim);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:11px}
+#fs-ctl button:hover{color:var(--text);border-color:var(--accent-dim)}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:400}
+#keys-modal{position:fixed;inset:0;background:rgba(4,8,14,.7);z-index:250;display:none;align-items:center;justify-content:center}
+#keys-modal.open{display:flex}
+#keys-box{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:26px 30px;width:min(420px,90vw)}
+#keys-box h3{color:var(--title);margin-bottom:16px;font-size:17px}
+#keys-box .kr{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--text)}
+#keys-box .kr:last-child{border:none}
 @media(prefers-reduced-motion:reduce){
   .radar .sweep,.blip{animation:none!important}
   #content,#home{animation:none!important}
@@ -194,9 +268,26 @@ pre:hover .copybtn{opacity:1}
 </main>
 </div>
 <button id="top-btn" title="Back to top">↑</button>
+<div id="palette"><div id="pal-box">
+  <input id="pal-input" type="text" placeholder="Jump to a chapter, or run a command…" autocomplete="off">
+  <div id="pal-list"></div>
+  <div id="pal-hint"><span><kbd>↑↓</kbd> navigate</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div>
+</div></div>
+<div id="keys-modal"><div id="keys-box">
+  <h3>Keyboard shortcuts</h3>
+  <div class="kr"><span>Search</span><span><kbd>/</kbd></span></div>
+  <div class="kr"><span>Command palette</span><span><kbd>Ctrl</kbd>+<kbd>K</kbd></span></div>
+  <div class="kr"><span>Previous / next chapter</span><span><kbd>←</kbd> <kbd>→</kbd></span></div>
+  <div class="kr"><span>Toggle theme</span><span><kbd>t</kbd></span></div>
+  <div class="kr"><span>Random chapter</span><span><kbd>r</kbd></span></div>
+  <div class="kr"><span>Bookmark current chapter</span><span><kbd>b</kbd></span></div>
+  <div class="kr"><span>This help</span><span><kbd>?</kbd></span></div>
+</div></div>
+<canvas id="confetti"></canvas>
+<div id="toasts"></div>
 <script id="pages-data" type="application/json">__PAGES_JSON__</script>
 <script>
-const ORDER=["README.md","01-foundations/what-osint-actually-is.md","01-foundations/the-intelligence-cycle.md","01-foundations/your-opsec-first.md","01-foundations/law-and-ethics.md","02-search-engines/google-like-a-pro.md","02-search-engines/beyond-google.md","03-people/usernames.md","03-people/email-addresses.md","03-people/phone-numbers.md","03-people/faces-and-names.md","04-social-media/x-twitter.md","04-social-media/meta-facebook-instagram.md","04-social-media/linkedin.md","04-social-media/reddit-tiktok-youtube.md","05-images-video/reverse-image-search.md","05-images-video/geolocating-photos.md","05-images-video/metadata-exif.md","06-domains-networks/whois-dns-ip.md","06-domains-networks/website-archives.md","07-business-crypto/company-records.md","07-business-crypto/following-the-money.md","07-business-crypto/crypto-tracing.md","08-geospatial/maps-and-imagery.md","08-geospatial/planes-ships-vehicles.md","09-dark-web/getting-started-safely.md","10-toolkit/the-big-tool-list.md","10-toolkit/building-your-rig.md","11-career/certifications.md","11-career/practice-and-jobs.md","12-methodology/writing-it-up.md","13-reference/cheat-sheet.md"];
+const ORDER=["README.md","01-foundations/what-osint-actually-is.md","01-foundations/the-intelligence-cycle.md","01-foundations/your-opsec-first.md","01-foundations/law-and-ethics.md","02-search-engines/google-like-a-pro.md","02-search-engines/beyond-google.md","03-people/usernames.md","03-people/email-addresses.md","03-people/phone-numbers.md","03-people/faces-and-names.md","04-social-media/x-twitter.md","04-social-media/meta-facebook-instagram.md","04-social-media/linkedin.md","04-social-media/reddit-tiktok-youtube.md","05-images-video/reverse-image-search.md","05-images-video/geolocating-photos.md","05-images-video/metadata-exif.md","06-domains-networks/whois-dns-ip.md","06-domains-networks/website-archives.md","07-business-crypto/company-records.md","07-business-crypto/following-the-money.md","07-business-crypto/crypto-tracing.md","08-geospatial/maps-and-imagery.md","08-geospatial/planes-ships-vehicles.md","09-dark-web/getting-started-safely.md","10-toolkit/the-big-tool-list.md","10-toolkit/building-your-rig.md","11-career/certifications.md","11-career/practice-and-jobs.md","12-methodology/writing-it-up.md","13-reference/cheat-sheet.md","13-reference/glossary.md","14-cases/famous-cases.md","14-cases/practice-lab.md"];
 const META={
  "":{"n":"Start here","c":"#e3b341"},
  "01-foundations":{"n":"Foundations","c":"#58a6ff","d":"Mindset, the intelligence cycle, protecting yourself, staying legal."},
@@ -211,7 +302,8 @@ const META={
  "10-toolkit":{"n":"Toolkit","c":"#6ee7b7","d":"The durable tool list and building your investigation rig."},
  "11-career":{"n":"Career","c":"#ffd166","d":"Certifications, practice venues, jobs, getting noticed."},
  "12-methodology":{"n":"Methodology","c":"#a5d6ff","d":"Turning findings into intelligence products people trust."},
- "13-reference":{"n":"Reference","c":"#4dd0b1","d":"The cheat sheet — everything compressed into one page."}};
+ "13-reference":{"n":"Reference","c":"#4dd0b1","d":"The cheat sheet and glossary — everything compressed."},
+ "14-cases":{"n":"Case Files","c":"#a9e34b","d":"Famous investigations dissected, plus ten hands-on training drills."}};
 const ICONS={
  "":'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="12" x2="19" y2="6"/>',
  "01-foundations":'<path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Z"/><path d="M4 19a2 2 0 0 0 2 2h13"/>',
@@ -226,7 +318,8 @@ const ICONS={
  "10-toolkit":'<path d="M14.7 6.3a4.5 4.5 0 0 0-6 6L3 18l3 3 5.7-5.7a4.5 4.5 0 0 0 6-6L14 13l-3-3Z"/>',
  "11-career":'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/>',
  "12-methodology":'<path d="M9 11l2 2 4-4"/><rect x="4" y="4" width="16" height="16" rx="2"/>',
- "13-reference":'<path d="M13 2L4.5 12.5H11L10 22l8.5-11H12Z"/>'};
+ "13-reference":'<path d="M13 2L4.5 12.5H11L10 22l8.5-11H12Z"/>',
+ "14-cases":'<rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="11" cy="11" r="3"/><line x1="16" y1="16" x2="13.5" y2="13.5"/>'};
 const DATA=JSON.parse(document.getElementById('pages-data').textContent);
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
 function title(k){return DATA[k]?DATA[k].t:k;}
@@ -256,7 +349,7 @@ document.getElementById('pf-reset').onclick=()=>{READ.clear();saveRead();};
 function renderHome(){
   const el=document.getElementById('home');
   let cards='';
-  ["01-foundations","02-search-engines","03-people","04-social-media","05-images-video","06-domains-networks","07-business-crypto","08-geospatial","09-dark-web","10-toolkit","11-career","12-methodology","13-reference"].forEach(g=>{
+  ["01-foundations","02-search-engines","03-people","04-social-media","05-images-video","06-domains-networks","07-business-crypto","08-geospatial","09-dark-web","10-toolkit","11-career","12-methodology","13-reference","14-cases"].forEach(g=>{
     const m=META[g],count=ORDER.filter(k=>groupOf(k)===g).length;
     cards+='<a class="card" href="#/'+ORDER.find(k=>groupOf(k)===g)+'" style="--c:'+m.c+'">'+
       '<div class="cicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+ICONS[g]+'</svg></div>'+
@@ -286,12 +379,26 @@ function renderHome(){
     '<div class="stat"><b>$0</b><span>cost</span></div>'+
    '</div>'+
    '<div class="btnrow"><a class="btn primary" href="#/'+ORDER[1]+'">Start reading →</a><a class="btn ghost" href="#/11-career/certifications.md">Get certified</a></div>'+
-  '</section>'+
+  '<h2 class="home-h2">Train & explore</h2>'+
+  '<div class="tiles">'+
+   '<a class="tile" href="#/_quiz"><div class="ti">🧠</div><b>Take the quiz</b><span>18 questions, scored</span></a>'+
+   '<a class="tile" href="#/_cards"><div class="ti">🃏</div><b>Flashcards</b><span>'+CARDS.length+' key terms</span></a>'+
+   '<a class="tile" href="#/13-reference/cheat-sheet.md"><div class="ti">⚡</div><b>Cheat sheet</b><span>everything, one page</span></a>'+
+   '<a class="tile" href="#" id="tile-random"><div class="ti">🎲</div><b>Surprise me</b><span>random chapter</span></a>'+
+  '</div>'+
+  '<h2 class="home-h2">Your achievements</h2>'+
+  '<div class="badges-row">'+BADGES.map(b=>'<span class="badge-chip'+(UNLOCKED.has(b.id)?' got':'')+'" title="'+esc(b.desc)+'">'+b.ic+' <b>'+esc(b.name)+'</b>'+(UNLOCKED.has(b.id)?' ✓':'')+'</span>').join('')+'</div>'+
+  (BOOKMARKS.size?'<h2 class="home-h2">Starred chapters</h2><ul class="starred-list">'+[...BOOKMARKS].map(k=>'<li><a href="#/'+k+'"><span>⭐ '+esc(title(k))+'</span><span class="x">open →</span></a></li>').join('')+'</ul>':'')+
   '<h2 class="home-h2">Browse by discipline</h2>'+
   '<div class="cards">'+cards+'</div>';
+  const tr=document.getElementById('tile-random');
+  if(tr)tr.onclick=e=>{e.preventDefault();randomChapter();};
 }
 function currentKey(){const h=decodeURIComponent(location.hash.replace(/^#\/?/,''));return DATA[h]?h:null;}
 function render(){
+  const h=decodeURIComponent(location.hash.replace(/^#\/?/,''));
+  if(h==='_quiz')return renderQuiz();
+  if(h==='_cards')return renderCards();
   const k=currentKey(),home=document.getElementById('home'),art=document.getElementById('content'),pg=document.getElementById('pager'),fn=document.getElementById('footnote');
   if(!k){renderHome();home.style.display='block';art.style.display='none';pg.style.display='none';fn.style.display='none';document.getElementById('toc').innerHTML='';document.title='OSINT Mastery';window.scrollTo({top:0});return;}
   home.style.display='none';art.style.display='block';pg.style.display='flex';fn.style.display='block';
@@ -299,12 +406,14 @@ function render(){
   document.documentElement.style.setProperty('--grp',gcolor(k));
   document.title=title(k)+' — OSINT Mastery';
   const g=META[groupOf(k)]||META[""];
-  art.insertAdjacentHTML('afterbegin','<div class="rt-meta"><span class="pill g">'+esc(g.n)+'</span><span class="pill">≈ '+DATA[k].m+' min read</span>'+(READ.has(k)?'<span class="pill rpill" style="color:#3fb950">✓ read</span>':'')+'</div>');
+  art.insertAdjacentHTML('afterbegin','<div class="rt-meta"><span class="pill g">'+esc(g.n)+'</span><span class="pill">≈ '+DATA[k].m+' min read</span>'+(READ.has(k)?'<span class="pill rpill" style="color:#3fb950">✓ read</span>':'')+'<span class="pill btn-pill" id="bm-btn">'+(BOOKMARKS.has(k)?'★ Starred':'☆ Bookmark')+'</span></div>');
+  const bm=document.getElementById('bm-btn');
+  if(bm)bm.onclick=()=>toggleBookmark(k);
   document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('active',a.dataset.key===k));
   const idx=ORDER.indexOf(k);
   pg.innerHTML=(idx>0?'<a class="prev" href="#/'+ORDER[idx-1]+'"><span class="dir">← Previous</span>'+esc(title(ORDER[idx-1]))+'</a>':'<span></span>')+
                (idx<ORDER.length-1?'<a class="next" href="#/'+ORDER[idx+1]+'"><span class="dir">Next →</span>'+esc(title(ORDER[idx+1]))+'</a>':'<span></span>');
-  buildToc();wireCopies();
+  buildToc();wireCopies();applyTooltips();
   window.scrollTo({top:0});
   requestAnimationFrame(()=>{if(art.getBoundingClientRect().bottom<=innerHeight)markRead(k);});
 }
@@ -336,13 +445,8 @@ window.addEventListener('scroll',()=>{
   document.querySelectorAll('#toc a').forEach(a=>a.classList.toggle('on',a.dataset.id===on));
 },{passive:true});
 document.getElementById('top-btn').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
-document.addEventListener('keydown',e=>{
-  if(e.target.tagName==='INPUT'||currentKey()===null)return;
-  const idx=ORDER.indexOf(currentKey());
-  if(e.key==='ArrowRight'&&idx<ORDER.length-1)location.hash='#/'+ORDER[idx+1];
-  if(e.key==='ArrowLeft'&&idx>0)location.hash='#/'+ORDER[idx-1];
-});
 document.getElementById('search').addEventListener('input',function(){
+  searches++;localStorage.setItem('osint-searches',String(searches));checkBadges();
   const q=this.value.trim().toLowerCase(),res=document.getElementById('results');
   if(q.length<2){res.style.display='none';res.innerHTML='';return;}
   const terms=q.split(/\s+/).filter(Boolean),hits=[];
@@ -377,13 +481,213 @@ themeBtn.id='theme-btn';themeBtn.setAttribute('aria-label','Toggle light mode');
 themeBtn.style.cssText='margin-left:8px;background:none;border:1px solid var(--border);color:var(--dim);border-radius:7px;padding:3px 9px;cursor:pointer;font-size:13px';
 themeBtn.title='Toggle light / dark';
 document.getElementById('pf-reset').parentNode.insertBefore(themeBtn,document.getElementById('pf-reset'));
-function applyTheme(t){document.documentElement.dataset.theme=t;localStorage.setItem('osint-theme',t);themeBtn.textContent=t==='light'?'☀':'☾';}
+function applyTheme(t){document.documentElement.dataset.theme=t;localStorage.setItem('osint-theme',t);themeBtn.textContent=t==='light'?'☀':'☾';if(!themesUsed.includes(t)){themesUsed.push(t);localStorage.setItem('osint-themes-used',JSON.stringify(themesUsed));}if(typeof checkBadges==='function')checkBadges();}
 applyTheme(localStorage.getItem('osint-theme')||(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));
 themeBtn.onclick=()=>applyTheme(document.documentElement.dataset.theme==='light'?'dark':'light');
-/* '/' focuses search */
-document.addEventListener('keydown',e=>{
-  if(e.key==='/'&&!/INPUT|TEXTAREA/.test(e.target.tagName)){e.preventDefault();document.getElementById('search').focus();}
+/* ================= v6 ENGINE ================= */
+let bestQuiz=parseFloat(localStorage.getItem('osint-quiz-best')||'0');
+let searches=parseInt(localStorage.getItem('osint-searches')||'0');
+let deckDone=localStorage.getItem('osint-deck-done')==='1';
+let themesUsed=JSON.parse(localStorage.getItem('osint-themes-used')||'["dark"]');
+let UNLOCKED=new Set(JSON.parse(localStorage.getItem('osint-badges')||'[]'));
+let BOOKMARKS=new Set(JSON.parse(localStorage.getItem('osint-bm')||'[]'));
+const keysModal=document.getElementById('keys-modal');
+function toast(msg){const t=document.createElement('div');t.className='toast';t.innerHTML=msg;document.getElementById('toasts').appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .4s';setTimeout(()=>t.remove(),400)},4200);}
+function confettiBurst(){
+  const cv=document.getElementById('confetti'),ctx=cv.getContext('2d');
+  cv.width=innerWidth;cv.height=innerHeight;
+  const cols=['#e3b341','#58a6ff','#3fb950','#f778ba','#a371f7','#39c5cf'];
+  const ps=[];for(let i=0;i<160;i++)ps.push({x:innerWidth/2+(Math.random()-0.5)*260,y:innerHeight*0.35,vx:(Math.random()-0.5)*13,vy:-Math.random()*13-4,g:0.32,s:Math.random()*7+4,c:cols[i%cols.length],r:Math.random()*Math.PI,vr:(Math.random()-0.5)*0.3,life:1});
+  let frames=0;(function loop(){ctx.clearRect(0,0,cv.width,cv.height);let alive=false;
+    ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.r+=p.vr;p.life-=0.006;if(p.life>0&&p.y<cv.height+30){alive=true;}ctx.save();ctx.globalAlpha=Math.max(p.life,0);ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*0.62);ctx.restore();});
+    frames++;if(alive&&frames<420)requestAnimationFrame(loop);else ctx.clearRect(0,0,cv.width,cv.height);})();
+}
+const BADGES=[
+ {id:'first',ic:'👣',name:'First Steps',desc:'Read your first chapter',test:()=>READ.size>=1},
+ {id:'half',ic:'🕵️',name:'Case Officer',desc:'Read half the guide',test:()=>READ.size>=Math.ceil(ORDER.length/2)},
+ {id:'all',ic:'🎖️',name:'Chief of Station',desc:'Read every chapter',test:()=>READ.size>=ORDER.length},
+ {id:'quiz',ic:'🧠',name:'Analyst Certified',desc:'Score 80%+ on the quiz',test:()=>bestQuiz>=0.8},
+ {id:'searcher',ic:'🔍',name:'Digging Deep',desc:'Run 10 searches',test:()=>searches>=10},
+ {id:'bookmarker',ic:'⭐',name:'Curator',desc:'Bookmark 3 chapters',test:()=>BOOKMARKS.size>=3},
+ {id:'flash',ic:'🃏',name:'Memory Palace',desc:'Complete a flashcard deck',test:()=>deckDone},
+ {id:'shapeshifter',ic:'🌗',name:'Shapeshifter',desc:'Use both themes',test:()=>themesUsed.length>=2}];
+function checkBadges(){
+  BADGES.forEach(b=>{if(!UNLOCKED.has(b.id)&&b.test()){UNLOCKED.add(b.id);localStorage.setItem('osint-badges',JSON.stringify([...UNLOCKED]));toast('<b>Achievement unlocked:</b> '+b.ic+' '+b.name+' — '+b.desc);if(b.id==='all')setTimeout(confettiBurst,600);}});
+}
+/* ---- quiz ---- */
+const QUIZ=[
+ {c:'Foundations',q:'What does the "OS" in OSINT stand for?',o:['Open Source','Onion Site','Operational Security','Origin Server'],a:0,w:'Open Source Intelligence: publicly available information turned into decision-support.'},
+ {c:'Methodology',q:'The Admiralty code grades sources on which two axes?',o:['Speed and cost','Reliability and credibility','Legality and ethics','Recency and frequency'],a:1,w:'A–F reliability of the source × 1–6 credibility of the specific information.'},
+ {c:'Methodology',q:'Under ICD-203, "highly likely" means what probability range?',o:['55–80%','90–100%','80–95%','70–85%'],a:2,w:'Standardized language keeps reports comparable: highly likely = 80–95%.'},
+ {c:'OPSEC',q:'Best practice for a sock puppet profile photo?',o:['Your own photo, cropped','A stock model photo','An AI-generated face','A landscape image'],a:2,w:'AI faces avoid harming real people while staying consistent. Stock/model photos reverse-search straight to "fake profile" reports.'},
+ {c:'Search engines',q:'Which operator restricts results to one website?',o:['inurl:','site:','intitle:','filetype:'],a:1,w:'site:example.com — the workhorse of x-ray searching.'},
+ {c:'Images',q:'Which engine is generally strongest for face similarity search?',o:['Google Images','Bing Visual','TinEye','Yandex'],a:3,w:'Yandex remains the practitioner favorite for faces and CIS-region content.'},
+ {c:'People',q:'Holehe tells you whether an email…',o:['Was in a breach dump','Is registered on 120+ sites','Has a Gravatar','Belongs to a bot'],a:1,w:'Registration footprint without triggering notifications — quiet by design.'},
+ {c:'People',q:'A username match on another platform becomes believable when…',o:['The handle matches exactly','The account has followers','Multiple independent signals converge','It appears first on Google'],a:2,w:'Avatar overlap, bio details, writing style, timelines — two confirmations minimum, three to publish.'},
+ {c:'Social media',q:'The backbone technique of LinkedIn investigation is…',o:['Sales Navigator trials','X-ray searching via Google','Connection requests','Recruiter messages'],a:1,w:'site:linkedin.com/in queries avoid login walls and never notify the subject.'},
+ {c:'Images',q:'To find the earliest appearance of an image, use…',o:['Google Lens','TinEye sorted by oldest','Yandex crops','FotoForensics'],a:1,w:'Provenance = oldest indexed copy. Recycled "exclusive" photos die under this check.'},
+ {c:'Geolocation',q:'Which tool turns a shadow direction into time/date/hemisphere?',o:['PeakVisor','Overpass Turbo','SunCalc','Mapillary'],a:2,w:'Shadows never lie about position of the sun — people do about locations.'},
+ {c:'Infrastructure',q:'The free certificate-transparency log that leaks internal subdomains is…',o:['Shodan','ViewDNS','crt.sh','PublicWWW'],a:2,w:'Every SSL cert ever issued is logged forever — including dev.target.com.'},
+ {c:'Crypto',q:'Crypto tracing typically stops at exchanges because of…',o:['Encryption','KYC/legal process walls','Mixers','Cold storage'],a:1,w:'You can prove funds reached an exchange; account names require legal process.'},
+ {c:'Career',q:'The industry gold-standard OSINT certification is…',o:['CEH','GOSI','Security+','OSCP'],a:1,w:'GIAC Open Source Intelligence, backed by SANS SEC497 — the HR checkbox.'},
+ {c:'Methodology',q:'BLUF report structure means…',o:['Background first','Conclusions up front','Footnotes on top','Chronological order'],a:1,w:'Bottom Line Up Front: decision-makers read three lines — make them the answer.'},
+ {c:'Case files',q:'MH17\u2019s downing was reconstructed open-source primarily via…',o:['Leaked calls','Crowdsourced photo geolocation','Satellite-only proof','Confessions'],a:1,w:'Dozens of geolocated social photos built a court-grade Buk route timeline.'},
+ {c:'Dark web',q:'Verified onion mirror lists come from…',o:['Google','dark.fail','Reddit','Ahmia'],a:1,w:'Phishing onions are rampant; never trust search-result links for money/accounts.'},
+ {c:'Ethics',q:'Password-reset reveal techniques are best described as…',o:['Fully legal everywhere','Required for OSINT','A documented-purpose gray zone','Always criminal'],a:2,w:'Widely taught, TOS-violating, legally contested. Know the line before you step near it.'}];
+function renderQuiz(){
+  const art=document.getElementById('content'),pg=document.getElementById('pager');
+  document.getElementById('home').style.display='none';art.style.display='block';pg.style.display='none';
+  document.getElementById('toc').innerHTML='';document.title='Quiz — OSINT Mastery';
+  let i=0,score=0;
+  function draw(){
+    window.scrollTo({top:0});
+    if(i>=QUIZ.length){
+      const pct=score/QUIZ.length;
+      if(pct>bestQuiz){bestQuiz=pct;localStorage.setItem('osint-quiz-best',String(bestQuiz));}
+      checkBadges();
+      const grade=pct===1?'Flawless. SANS would like a word.':pct>=0.8?'Analyst-grade. The badge proves it.':pct>=0.5?'Solid foundation — reread the misses.':'Back to foundations. No shame, that\u2019s what they\u2019re for.';
+      art.innerHTML='<div class="quiz-wrap"><h1>Results</h1><div class="q-score-big">'+score+' / '+QUIZ.length+'</div><p style="text-align:center;color:var(--dim);margin-bottom:26px">'+grade+'</p><div style="display:flex;gap:12px;justify-content:center"><button class="q-next" id="q-retry">Retry</button><a class="btn ghost" href="#/" style="padding:11px 26px">Home</a></div></div>';
+      document.getElementById('q-retry').onclick=()=>{i=0;score=0;draw();};
+      return;
+    }
+    const q=QUIZ[i];
+    art.innerHTML='<div class="quiz-wrap"><h1>Test yourself</h1><div class="rt-meta"><span class="pill g">'+(i+1)+' of '+QUIZ.length+'</span><span class="pill">score '+score+'</span></div><div class="q-progress"><i style="width:'+(i/QUIZ.length*100)+'%"></i></div><div class="q-card"><div class="q-cat">'+esc(q.c)+'</div><div class="q-q">'+esc(q.q)+'</div>'+q.o.map((o,j)=>'<button class="q-opt" data-j="'+j+'">'+String.fromCharCode(65+j)+'. '+esc(o)+'</button>').join('')+'<div id="q-whybox"></div></div></div>';
+    art.querySelectorAll('.q-opt').forEach(b=>b.onclick=()=>{
+      const j=+b.dataset.j;
+      art.querySelectorAll('.q-opt').forEach(x=>{x.disabled=true;if(+x.dataset.j===q.a)x.classList.add('right');});
+      if(j===q.a)score++;else b.classList.add('wrong');
+      document.getElementById('q-whybox').innerHTML='<div class="q-why">'+(j===q.a?'✅ Correct. ':'❌ Not quite. ')+esc(q.w)+'</div><button class="q-next" id="q-next">'+(i===QUIZ.length-1?'See results →':'Next question →')+'</button>';
+      document.getElementById('q-next').onclick=()=>{i++;draw();};
+    });
+  }
+  draw();
+}
+/* ---- flashcards ---- */
+const CARDS=[
+ {t:'Sock puppet',d:'Investigative alias account: consistent fictional identity, aged history, zero ties to your real self.'},
+ {t:'Dork',d:'Advanced Google query finding exposed content — intitle:"index of", filetype:xlsx, site:.'},
+ {t:'EXIF',d:'Photo metadata: GPS, device, timestamps. Stripped by most platforms, alive in originals.'},
+ {t:'X-ray search',d:'Using Google/Bing operators to extract login-walled content (LinkedIn) from their indexes.'},
+ {t:'PIR',d:'Priority Intelligence Requirement — the written question your collection must answer.'},
+ {t:'BLUF',d:'Bottom Line Up Front: conclusions first, evidence after.'},
+ {t:'Admiralty code',d:'Source grading: reliability A–F × credibility 1–6. "B2" = usually reliable, probably true.'},
+ {t:'ICD-203',d:'Probability language standard: highly likely = 80–95%, likely = 55–80%.'},
+ {t:'crt.sh',d:'Certificate transparency search — every SSL cert ever issued, leaking internal subdomains.'},
+ {t:'Shodan',d:'Search engine for internet-connected devices, indexed by service banners.'},
+ {t:'SunCalc',d:'Shadow calculator converting shadow direction/length into time, date, hemisphere.'},
+ {t:'AIS',d:'Ships\u2019 broadcast transponder system. Public, spoofable; coverage gaps tell stories.'},
+ {t:'IMO number',d:'A ship\u2019s lifelong identity — survives renames used to dodge sanctions history.'},
+ {t:'KYC',d:'Know Your Customer: exchange identity checks. Where crypto tracing legally stops.'},
+ {t:'Holehe',d:'Checks email registration across 120+ sites without notifying anyone.'},
+ {t:'Epieos',d:'Reveals Google/Microsoft account linkage from an email address.'},
+ {t:'WhatsMyName',d:'Community username-enumeration project powering most handle pivots.'},
+ {t:'Maltego',d:'Classic link-analysis platform with data transforms. Free CE tier covers learning.'},
+ {t:'SOCMINT',d:'Social media intelligence branch.'},
+ {t:'FININT',d:'Financial intelligence: registries, property, sanctions lists, crypto.'},
+ {t:'Sinker',d:'Deliberately planted fake detail used to identify leakers.'},
+ {t:'Verification',d:'Confirming origin, date, and location: reverse search + geolocation + metadata + corroboration.'}];
+function renderCards(){
+  const art=document.getElementById('content'),pg=document.getElementById('pager');
+  document.getElementById('home').style.display='none';art.style.display='block';pg.style.display='none';
+  document.getElementById('toc').innerHTML='';document.title='Flashcards — OSINT Mastery';
+  let order=CARDS.map((_,i)=>i);for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}
+  let idx=0,flipped=false;
+  function draw(){
+    window.scrollTo({top:0});
+    const c=CARDS[order[idx]];
+    art.innerHTML='<div class="quiz-wrap"><h1>Flashcards</h1><p style="color:var(--dim)">Term → definition. Click the card to flip.</p>'+
+     '<div class="fc-stage"><div class="fc-card'+(flipped?' flip':'')+'" id="fc"><div class="fc-face"><div class="fc-term">'+esc(c.t)+'</div><div class="fc-hint">click to flip</div></div><div class="fc-face back"><div class="fc-def">'+esc(c.d)+'</div></div></div></div>'+
+     '<div class="fc-nav"><button class="fc-btn" id="fc-prev">◀ Prev</button><button class="fc-btn" id="fc-flip">Flip</button><button class="fc-btn" id="fc-shuffle">🔀 Shuffle</button><button class="fc-btn" id="fc-next">Next ▶</button></div>'+
+     '<div class="fc-count">'+(idx+1)+' / '+CARDS.length+'</div></div>';
+    document.getElementById('fc').onclick=()=>{flipped=!flipped;document.getElementById('fc').classList.toggle('flip',flipped);};
+    document.getElementById('fc-flip').onclick=()=>{flipped=!flipped;document.getElementById('fc').classList.toggle('flip',flipped);};
+    document.getElementById('fc-prev').onclick=()=>{flipped=false;idx=(idx-1+CARDS.length)%CARDS.length;draw();};
+    document.getElementById('fc-next').onclick=()=>{flipped=false;idx=(idx+1)%CARDS.length;if(idx===0&&!deckDone){deckDone=true;localStorage.setItem('osint-deck-done','1');checkBadges();toast('🃏 Deck complete — <b>Memory Palace</b> progress checked');}draw();};
+    document.getElementById('fc-shuffle').onclick=()=>{for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}idx=0;flipped=false;draw();};
+  }
+  draw();
+}
+/* ---- glossary tooltips ---- */
+const GLOSS={sock puppet:'Alias account with consistent fake identity, aged history, no ties to you.',dork:'Advanced Google query finding exposed content.',exif:'Photo metadata: GPS, device, timestamps.',bluf:'Bottom Line Up Front — conclusions first in reports.',shodan:'Search engine for internet-connected devices.',suncalc:'Converts shadows into time/date/hemisphere.',maltego:'Link-analysis platform with data transforms.',verification:'Confirming origin, date, location via multiple methods.','admiralty code':'Source grading: reliability A–F × credibility 1–6.','x-ray':'Extracting login-walled content via search indexes.',opsec:'Protecting your own identity and methods during investigation.',wayback:'Internet Archive web snapshots — deleted pages live again.',pir:'Priority Intelligence Requirement — your written collection goal.',kyc:'Exchange identity checks; where crypto tracing stops.',ais:'Ship transponder broadcasts; public and spoofable.'};
+function applyTooltips(){
+  const art=document.getElementById('content');
+  const walker=document.createTreeWalker(art,NodeFilter.SHOW_TEXT,{acceptNode:function(n){if(!n.nodeValue||n.nodeValue.trim().length<4)return NodeFilter.FILTER_REJECT;const p=n.parentNode;if(p.closest&&p.closest('a,code,pre,.gloss,h1,h2,button'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});
+  const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+  let budget=8;
+  nodes.forEach(function(n){
+    if(budget<=0)return;
+    const low=n.nodeValue.toLowerCase();let best=-1,bt=null;
+    for(const t in GLOSS){const p=low.indexOf(t);if(p>=0&&(best<0||p<best)){best=p;bt=t;}}
+    if(bt===null)return;
+    budget--;
+    const word=n.nodeValue.substr(best,bt.length);
+    const span=document.createElement('span');span.className='gloss';span.textContent=word;span.title=GLOSS[bt];
+    const after=n.nodeValue.substr(best+bt.length);
+    n.nodeValue=n.nodeValue.slice(0,best);
+    n.parentNode.insertBefore(span,n.nextSibling);
+    span.parentNode.insertBefore(document.createTextNode(after),span.nextSibling);
+  });
+}
+/* ---- command palette ---- */
+const pal=document.getElementById('palette'),palIn=document.getElementById('pal-input'),palList=document.getElementById('pal-list');
+let palSel=0,palItems=[];
+function openPal(){pal.classList.add('open');palIn.value='';buildPal('');setTimeout(()=>palIn.focus(),30);}
+function closePal(){pal.classList.remove('open');}
+function buildPal(q){
+  const acts=[
+   {t:'Toggle light / dark theme',ic:'◐',sub:'action',run:()=>applyTheme(document.documentElement.dataset.theme==='light'?'dark':'light')},
+   {t:'Random chapter',ic:'🎲',sub:'action',run:randomChapter},
+   {t:'Start the quiz',ic:'🧠',sub:'quiz',run:()=>location.hash='#/_quiz'},
+   {t:'Flashcards',ic:'🃏',sub:'study',run:()=>location.hash='#/_cards'},
+   {t:'Keyboard shortcuts',ic:'⌨️',sub:'help',run:()=>keysModal.classList.add('open')},
+   {t:'Go home',ic:'🏠',sub:'nav',run:()=>location.hash='#/'}];
+  const chs=ORDER.map(k=>({t:title(k),ic:'📄',sub:(groupOf(k)?(META[groupOf(k)]||META['']).n:'start'),run:()=>location.hash='#/'+k}));
+  const all=acts.concat(chs);
+  const ql=q.toLowerCase();
+  palItems=q?all.filter(x=>x.t.toLowerCase().indexOf(ql)>=0).slice(0,10):all.slice(0,11);
+  palSel=0;
+  palList.innerHTML=palItems.length?palItems.map((x,i)=>'<button class="pal-item'+(i===0?' sel':'')+'" data-i="'+i+'"><span class="pi-ic">'+x.ic+'</span>'+esc(x.t)+'<span class="pi-sub">'+esc(x.sub)+'</span></button>').join(''):'<button class="pal-item">Nothing matches.</button>';
+  palList.querySelectorAll('.pal-item[data-i]').forEach(b=>b.onclick=()=>{palItems[+b.dataset.i].run();closePal();});
+}
+palIn.addEventListener('input',()=>buildPal(palIn.value));
+palIn.addEventListener('keydown',e=>{
+  if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();
+    palSel=(palSel+(e.key==='ArrowDown'?1:-1)+palItems.length)%Math.max(palItems.length,1);
+    palList.querySelectorAll('.pal-item').forEach((b,i)=>b.classList.toggle('sel',i===palSel));
+    const s=palList.querySelector('.pal-item.sel');if(s)s.scrollIntoView({block:'nearest'});}
+  if(e.key==='Enter'&&palItems[palSel]){palItems[palSel].run();closePal();}
 });
+pal.addEventListener('click',e=>{if(e.target===pal)closePal();});
+/* ---- misc actions ---- */
+function randomChapter(){
+  let k;do{k=ORDER[Math.floor(Math.random()*ORDER.length)];}while(k===currentKey());
+  location.hash='#/'+k;toast('🎲 Random jump: <b>'+esc(title(k))+'</b>');
+}
+function toggleBookmark(k){
+  if(!k)return;
+  if(BOOKMARKS.has(k)){BOOKMARKS.delete(k);}else{BOOKMARKS.add(k);toast('⭐ Starred: <b>'+esc(title(k))+'</b>');}
+  localStorage.setItem('osint-bm',JSON.stringify([...BOOKMARKS]));
+  const p=document.getElementById('bm-btn');
+  if(p)p.textContent=BOOKMARKS.has(k)?'★ Starred':'☆ Bookmark';
+  checkBadges();
+}
+/* ---- unified keyboard ---- */
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closePal();keysModal.classList.remove('open');return;}
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openPal();return;}
+  const tag=e.target.tagName;
+  if(tag==='INPUT'||tag==='TEXTAREA')return;
+  if(e.key==='/'){e.preventDefault();document.getElementById('search').focus();return;}
+  if(e.key==='?'){keysModal.classList.toggle('open');return;}
+  if(e.key.toLowerCase()==='t'){applyTheme(document.documentElement.dataset.theme==='light'?'dark':'light');return;}
+  if(e.key.toLowerCase()==='r'){randomChapter();return;}
+  if(e.key.toLowerCase()==='b'){toggleBookmark(currentKey());return;}
+  const k=currentKey();if(k===null)return;
+  const idx=ORDER.indexOf(k);
+  if(e.key==='ArrowRight'&&idx<ORDER.length-1)location.hash='#/'+ORDER[idx+1];
+  if(e.key==='ArrowLeft'&&idx>0)location.hash='#/'+ORDER[idx-1];
+});
+keysModal.addEventListener('click',e=>{if(e.target===keysModal)keysModal.classList.remove('open');});
 updateProgress();render();
 </script>
 </body>
