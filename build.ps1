@@ -22,7 +22,9 @@ function Convert-MdInline([string]$s) {
         $s = $s -replace [regex]::Escape($Matches[0]), ("{{C{0}}}" -f $idx)
     }
     $linkEval = [System.Text.RegularExpressions.MatchEvaluator]{ param($m)
-        '<a href="' + ($m.Groups[2].Value.Replace('"', '&quot;')) + '">' + $m.Groups[1].Value + '</a>' }
+        $url = $m.Groups[2].Value
+        if ($url -match '\.md$') { $url = '#' + '/' + $url }
+        '<a href="' + ($url.Replace('"', '&quot;')) + '">' + $m.Groups[1].Value + '</a>' }
     $s = [regex]::Replace($s, '\[([^\]]+)\]\(([^)\s]+)\)', $linkEval)
     $boldEval = [System.Text.RegularExpressions.MatchEvaluator]{ param($m)
         '<strong>' + $m.Groups[1].Value + '</strong>' }
@@ -143,7 +145,8 @@ $json = ($pages | ConvertTo-Json -Depth 4).Replace('</', '<\/')
 
 # noscript chapter list for crawlers/JS-off visitors
 $list = ($pages.Keys | ForEach-Object { '<li>' + ($pages[$_].t -replace '&', '&amp;') + '</li>' }) -join ''
-$html = $template.Replace('__PAGES_JSON__', $json).Replace('__NOSCRIPT_LIST__', $list)
+$buildDate = (Get-Date).ToUniversalTime().ToString('yyyy-MM-dd')
+$html = $template.Replace('__PAGES_JSON__', $json).Replace('__NOSCRIPT_LIST__', $list).Replace('__BUILD_DATE__', $buildDate)
 
 $outPath = Join-Path $root "index.html"
 [IO.File]::WriteAllText($outPath, $html, (New-Object System.Text.UTF8Encoding($false)))

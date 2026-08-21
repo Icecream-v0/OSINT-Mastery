@@ -35,7 +35,7 @@ Save the number as a contact, then:
 - **WhatsApp** — does an account exist? Profile photo, about text, last-seen settings.
   Photos reverse-search well. Business accounts show category and address sometimes.
 - **Telegram** — similar; username attached to the number is a direct pivot into
-  `usernames.md`.
+  [usernames](usernames.md).
 - **Signal** — existence check only, no metadata shown. Still useful to confirm
   registration.
 
@@ -46,7 +46,7 @@ number. Interacting (messaging) is a different story entirely.
 
 Password-reset flows on some platforms reveal masked digits of linked numbers;
 breach dumps contain full numbers. Both carry the legal/TOS caveats covered in
-`01-foundations/law-and-ethics.md`. Use judgment, document purpose.
+[law-and-ethics](01-foundations/law-and-ethics.md). Use judgment, document purpose.
 
 ## Where numbers lead
 

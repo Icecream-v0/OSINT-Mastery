@@ -54,5 +54,5 @@ you use them, document justification and understand courts may exclude the fruit
 ## What to extract once verified
 
 Registration footprint (Holehe/Epieos), breach exposure (HIBP), gravatar photo →
-reverse image search, username portion → feed back into `usernames.md`. Every answer
+reverse image search, username portion → feed back into [usernames](usernames.md). Every answer
 should spawn the next question.

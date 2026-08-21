@@ -37,7 +37,7 @@ via "instagram viewer" searches — never log in through any of them).
 Tags map real-world relationships better than followers do.
 
 **Stories require login** — this is where sock puppets earn their keep (see
-01-foundations/your-opsec-first.md). Aged persona account, passive viewing only,
+[Your OPSEC Comes First](01-foundations/your-opsec-first.md)). Aged persona account, passive viewing only,
 never interact from anything connected to you.
 
 **Instaloader** (CLI) — archives public profiles: posts, captions, comments.

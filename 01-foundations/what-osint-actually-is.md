@@ -51,4 +51,4 @@ Three habits separate practitioners from people who watch YouTube videos about O
 - It's not magic. Half the craft is accepting "I couldn't determine X" as a valid
   finding.
 
-Next: `the-intelligence-cycle.md` — how professionals structure the chaos.
+Next: [the-intelligence-cycle](the-intelligence-cycle.md) — how professionals structure the chaos.

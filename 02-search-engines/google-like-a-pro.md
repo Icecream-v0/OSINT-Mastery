@@ -55,13 +55,13 @@ email in meeting minutes, attendee lists, leaked spreadsheets.
 ## Things most people don't know
 
 - **Google Cache died in early 2024.** Stop using `cache:` — it's gone. Use the Wayback
-  Machine instead (see `06-domains-networks/website-archives.md`).
+  Machine instead (see [website-archives](06-domains-networks/website-archives.md)).
 - **Verbatim mode** (Tools → All → Verbatim) stops Google "helpfully" ignoring your
   operators and synonyms. Use it when precision matters.
 - **Autosuggest is free intel.** Type a name and see what completes — it reflects real
   search behavior, sometimes revealing nicknames, scandals, or associations.
 - **Google Images / Lens** is a search engine too. Reverse searching is covered in
-  `05-images-video/` but know that Lens reads text inside images now — signs,
+  [the images chapter](05-images-video/reverse-image-search.md) but know that Lens reads text inside images now — signs,
   documents, handwriting.
 - **Search by date isn't reliable.** `before:/after:` filters by Google's date guess,
   which is often the crawl date, not publication date. Verify manually.

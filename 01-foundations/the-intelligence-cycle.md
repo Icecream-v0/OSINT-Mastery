@@ -36,7 +36,7 @@ confidence assessment. Techniques worth learning by name:
 - **Link analysis** — network graphs of people/orgs/assets with evidence-labeled edges.
 
 **5. Dissemination**
-Deliver the product (see `12-methodology/writing-it-up.md`) to whoever needed the
+Deliver the product (see [writing-it-up](12-methodology/writing-it-up.md)) to whoever needed the
 answer, at their level of detail.
 
 Then **feedback**: was it useful? What's missing? That reshapes next cycle's

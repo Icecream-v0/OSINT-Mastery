@@ -17,7 +17,7 @@ Read it in order the first time. After that, use it as a reference.
 | `02-search-engines/` | Google dorking and every engine that isn't Google |
 | `03-people/` | Usernames, emails, phone numbers, faces and names |
 | `04-social-media/` | X/Twitter, Facebook, Instagram, LinkedIn, Reddit, TikTok, YouTube |
-| `05-images-video/` | Reverse image search, geolocating photos, EXIF metadata |
+| [Images & Video](05-images-video/reverse-image-search.md) | Reverse image search, geolocating photos, EXIF metadata |
 | `06-domains-networks/` | WHOIS, DNS, IP intel, Shodan, website archives |
 | `07-business-crypto/` | Company registries, following money, blockchain tracing |
 | `08-geospatial/` | Satellite imagery, maps, planes, ships, vehicles |
@@ -25,12 +25,13 @@ Read it in order the first time. After that, use it as a reference.
 | `10-toolkit/` | The big tool list plus how to build your investigation rig |
 | `11-career/` | **Certifications and jobs — start here if you want the title** |
 | `12-methodology/` | Turning findings into intelligence products people trust |
+| [The Cheat Sheet](13-reference/cheat-sheet.md) | Everything compressed into one page — dorks, tools, checklists |
 
 ---
 
 ## If you want the OSINT title fast
 
-Go read `11-career/certifications.md`. Short version of the path:
+Go read [certifications](11-career/certifications.md). Short version of the path:
 
 1. Work through this folder, doing every exercise for real.
 2. Do the free TryHackMe OSINT path and Bellingcat's challenges.
@@ -47,4 +48,4 @@ not mean consequence-free. Every file in here assumes you're doing defensive wor
 research, journalism, CTFs, or authorized investigations. Don't be the reason OSINT
 gets a bad name.
 
-Now open `01-foundations/what-osint-actually-is.md`.
+Now open [what-osint-actually-is](01-foundations/what-osint-actually-is.md).

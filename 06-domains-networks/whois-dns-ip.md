@@ -58,4 +58,4 @@ engagements. Both free, both in Kali, both worth learning properly.
 
 All of the above queries public records about infrastructure — fully legal. Active
 scanning/port-knocking targets crosses into authorization-required territory
-(see 01-foundations/law-and-ethics.md). Passive recon only unless you have permission.
+(see [law and ethics](01-foundations/law-and-ethics.md)). Passive recon only unless you have permission.
