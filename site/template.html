@@ -322,6 +322,36 @@ const ICONS={
  "14-cases":'<rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="11" cy="11" r="3"/><line x1="16" y1="16" x2="13.5" y2="13.5"/>'};
 const DATA=JSON.parse(document.getElementById('pages-data').textContent);
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+/* ---- shared state (must exist before any consumer runs) ---- */
+let bestQuiz=parseFloat(localStorage.getItem('osint-quiz-best')||'0');
+let searches=parseInt(localStorage.getItem('osint-searches')||'0');
+let deckDone=localStorage.getItem('osint-deck-done')==='1';
+let themesUsed=JSON.parse(localStorage.getItem('osint-themes-used')||'["dark"]');
+let UNLOCKED=new Set(JSON.parse(localStorage.getItem('osint-badges')||'[]'));
+let BOOKMARKS=new Set(JSON.parse(localStorage.getItem('osint-bm')||'[]'));
+const keysModal=document.getElementById('keys-modal');
+function toast(msg){const t=document.createElement('div');t.className='toast';t.innerHTML=msg;document.getElementById('toasts').appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .4s';setTimeout(()=>t.remove(),400)},4200);}
+function confettiBurst(){
+  const cv=document.getElementById('confetti'),ctx=cv.getContext('2d');
+  cv.width=innerWidth;cv.height=innerHeight;
+  const cols=['#e3b341','#58a6ff','#3fb950','#f778ba','#a371f7','#39c5cf'];
+  const ps=[];for(let i=0;i<160;i++)ps.push({x:innerWidth/2+(Math.random()-0.5)*260,y:innerHeight*0.35,vx:(Math.random()-0.5)*13,vy:-Math.random()*13-4,g:0.32,s:Math.random()*7+4,c:cols[i%cols.length],r:Math.random()*Math.PI,vr:(Math.random()-0.5)*0.3,life:1});
+  let frames=0;(function loop(){ctx.clearRect(0,0,cv.width,cv.height);let alive=false;
+    ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.r+=p.vr;p.life-=0.006;if(p.life>0&&p.y<cv.height+30){alive=true;}ctx.save();ctx.globalAlpha=Math.max(p.life,0);ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*0.62);ctx.restore();});
+    frames++;if(alive&&frames<420)requestAnimationFrame(loop);else ctx.clearRect(0,0,cv.width,cv.height);})();
+}
+const BADGES=[
+ {id:'first',ic:'👣',name:'First Steps',desc:'Read your first chapter',test:()=>READ.size>=1},
+ {id:'half',ic:'🕵️',name:'Case Officer',desc:'Read half the guide',test:()=>READ.size>=Math.ceil(ORDER.length/2)},
+ {id:'all',ic:'🎖️',name:'Chief of Station',desc:'Read every chapter',test:()=>READ.size>=ORDER.length},
+ {id:'quiz',ic:'🧠',name:'Analyst Certified',desc:'Score 80%+ on the quiz',test:()=>bestQuiz>=0.8},
+ {id:'searcher',ic:'🔍',name:'Digging Deep',desc:'Run 10 searches',test:()=>searches>=10},
+ {id:'bookmarker',ic:'⭐',name:'Curator',desc:'Bookmark 3 chapters',test:()=>BOOKMARKS.size>=3},
+ {id:'flash',ic:'🃏',name:'Memory Palace',desc:'Complete a flashcard deck',test:()=>deckDone},
+ {id:'shapeshifter',ic:'🌗',name:'Shapeshifter',desc:'Use both themes',test:()=>themesUsed.length>=2}];
+function checkBadges(){
+  BADGES.forEach(b=>{if(!UNLOCKED.has(b.id)&&b.test()){UNLOCKED.add(b.id);localStorage.setItem('osint-badges',JSON.stringify([...UNLOCKED]));toast('<b>Achievement unlocked:</b> '+b.ic+' '+b.name+' — '+b.desc);if(b.id==='all')setTimeout(confettiBurst,600);}});
+}
 function title(k){return DATA[k]?DATA[k].t:k;}
 function groupOf(k){const i=k.indexOf('/');return i<0?'':k.slice(0,i);}
 function gcolor(k){return (META[groupOf(k)]||META[""]).c;}
@@ -485,35 +515,6 @@ function applyTheme(t){document.documentElement.dataset.theme=t;localStorage.set
 applyTheme(localStorage.getItem('osint-theme')||(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));
 themeBtn.onclick=()=>applyTheme(document.documentElement.dataset.theme==='light'?'dark':'light');
 /* ================= v6 ENGINE ================= */
-let bestQuiz=parseFloat(localStorage.getItem('osint-quiz-best')||'0');
-let searches=parseInt(localStorage.getItem('osint-searches')||'0');
-let deckDone=localStorage.getItem('osint-deck-done')==='1';
-let themesUsed=JSON.parse(localStorage.getItem('osint-themes-used')||'["dark"]');
-let UNLOCKED=new Set(JSON.parse(localStorage.getItem('osint-badges')||'[]'));
-let BOOKMARKS=new Set(JSON.parse(localStorage.getItem('osint-bm')||'[]'));
-const keysModal=document.getElementById('keys-modal');
-function toast(msg){const t=document.createElement('div');t.className='toast';t.innerHTML=msg;document.getElementById('toasts').appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .4s';setTimeout(()=>t.remove(),400)},4200);}
-function confettiBurst(){
-  const cv=document.getElementById('confetti'),ctx=cv.getContext('2d');
-  cv.width=innerWidth;cv.height=innerHeight;
-  const cols=['#e3b341','#58a6ff','#3fb950','#f778ba','#a371f7','#39c5cf'];
-  const ps=[];for(let i=0;i<160;i++)ps.push({x:innerWidth/2+(Math.random()-0.5)*260,y:innerHeight*0.35,vx:(Math.random()-0.5)*13,vy:-Math.random()*13-4,g:0.32,s:Math.random()*7+4,c:cols[i%cols.length],r:Math.random()*Math.PI,vr:(Math.random()-0.5)*0.3,life:1});
-  let frames=0;(function loop(){ctx.clearRect(0,0,cv.width,cv.height);let alive=false;
-    ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.r+=p.vr;p.life-=0.006;if(p.life>0&&p.y<cv.height+30){alive=true;}ctx.save();ctx.globalAlpha=Math.max(p.life,0);ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*0.62);ctx.restore();});
-    frames++;if(alive&&frames<420)requestAnimationFrame(loop);else ctx.clearRect(0,0,cv.width,cv.height);})();
-}
-const BADGES=[
- {id:'first',ic:'👣',name:'First Steps',desc:'Read your first chapter',test:()=>READ.size>=1},
- {id:'half',ic:'🕵️',name:'Case Officer',desc:'Read half the guide',test:()=>READ.size>=Math.ceil(ORDER.length/2)},
- {id:'all',ic:'🎖️',name:'Chief of Station',desc:'Read every chapter',test:()=>READ.size>=ORDER.length},
- {id:'quiz',ic:'🧠',name:'Analyst Certified',desc:'Score 80%+ on the quiz',test:()=>bestQuiz>=0.8},
- {id:'searcher',ic:'🔍',name:'Digging Deep',desc:'Run 10 searches',test:()=>searches>=10},
- {id:'bookmarker',ic:'⭐',name:'Curator',desc:'Bookmark 3 chapters',test:()=>BOOKMARKS.size>=3},
- {id:'flash',ic:'🃏',name:'Memory Palace',desc:'Complete a flashcard deck',test:()=>deckDone},
- {id:'shapeshifter',ic:'🌗',name:'Shapeshifter',desc:'Use both themes',test:()=>themesUsed.length>=2}];
-function checkBadges(){
-  BADGES.forEach(b=>{if(!UNLOCKED.has(b.id)&&b.test()){UNLOCKED.add(b.id);localStorage.setItem('osint-badges',JSON.stringify([...UNLOCKED]));toast('<b>Achievement unlocked:</b> '+b.ic+' '+b.name+' — '+b.desc);if(b.id==='all')setTimeout(confettiBurst,600);}});
-}
 /* ---- quiz ---- */
 const QUIZ=[
  {c:'Foundations',q:'What does the "OS" in OSINT stand for?',o:['Open Source','Onion Site','Operational Security','Origin Server'],a:0,w:'Open Source Intelligence: publicly available information turned into decision-support.'},
@@ -608,7 +609,7 @@ function renderCards(){
   draw();
 }
 /* ---- glossary tooltips ---- */
-const GLOSS={sock puppet:'Alias account with consistent fake identity, aged history, no ties to you.',dork:'Advanced Google query finding exposed content.',exif:'Photo metadata: GPS, device, timestamps.',bluf:'Bottom Line Up Front — conclusions first in reports.',shodan:'Search engine for internet-connected devices.',suncalc:'Converts shadows into time/date/hemisphere.',maltego:'Link-analysis platform with data transforms.',verification:'Confirming origin, date, location via multiple methods.','admiralty code':'Source grading: reliability A–F × credibility 1–6.','x-ray':'Extracting login-walled content via search indexes.',opsec:'Protecting your own identity and methods during investigation.',wayback:'Internet Archive web snapshots — deleted pages live again.',pir:'Priority Intelligence Requirement — your written collection goal.',kyc:'Exchange identity checks; where crypto tracing stops.',ais:'Ship transponder broadcasts; public and spoofable.'};
+const GLOSS={'sock puppet':'Alias account with consistent fake identity, aged history, no ties to you.',dork:'Advanced Google query finding exposed content.',exif:'Photo metadata: GPS, device, timestamps.',bluf:'Bottom Line Up Front — conclusions first in reports.',shodan:'Search engine for internet-connected devices.',suncalc:'Converts shadows into time/date/hemisphere.',maltego:'Link-analysis platform with data transforms.',verification:'Confirming origin, date, location via multiple methods.','admiralty code':'Source grading: reliability A–F × credibility 1–6.','x-ray':'Extracting login-walled content via search indexes.',opsec:'Protecting your own identity and methods during investigation.',wayback:'Internet Archive web snapshots — deleted pages live again.',pir:'Priority Intelligence Requirement — your written collection goal.',kyc:'Exchange identity checks; where crypto tracing stops.',ais:'Ship transponder broadcasts; public and spoofable.'};
 function applyTooltips(){
   const art=document.getElementById('content');
   const walker=document.createTreeWalker(art,NodeFilter.SHOW_TEXT,{acceptNode:function(n){if(!n.nodeValue||n.nodeValue.trim().length<4)return NodeFilter.FILTER_REJECT;const p=n.parentNode;if(p.closest&&p.closest('a,code,pre,.gloss,h1,h2,button'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});
