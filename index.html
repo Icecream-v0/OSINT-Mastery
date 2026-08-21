@@ -132,6 +132,15 @@ pre:hover .copybtn{opacity:1}
 #top-btn{position:fixed;bottom:26px;right:26px;width:42px;height:42px;border-radius:50%;background:var(--panel2);border:1px solid var(--border);color:var(--accent);font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s;z-index:65;box-shadow:0 6px 20px rgba(0,0,0,.4)}
 #top-btn.show{opacity:1;pointer-events:auto}
 #menu-btn{display:none;position:fixed;top:14px;left:14px;z-index:80;background:var(--panel2);border:1px solid var(--border);color:var(--text);border-radius:9px;padding:8px 12px;font-size:16px;cursor:pointer}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#content,#home{animation:fadein .3s ease}
+@media print{
+  #sidebar,#bar,#top-btn,#menu-btn,#pager,#toc,.footer-note{display:none!important}
+  body{background:#fff;color:#111}
+  #content h1,#content h2,#content strong{color:#000}
+  #content h3{color:#333}
+  #main{max-width:100%;padding:0}
+}
 @media(max-width:900px){
   #menu-btn{display:block}
   #sidebar{position:fixed;left:-320px;transition:left .25s}
@@ -329,7 +338,10 @@ function render(){
   window.scrollTo({top:0});
   requestAnimationFrame(()=>{if(art.getBoundingClientRect().bottom<=innerHeight)markRead(k);});
 }
-function markRead(k){if(!READ.has(k)){READ.add(k);saveRead();render();}}
+function markRead(k){if(!READ.has(k)){READ.add(k);saveRead();
+  const p=document.querySelector('.rt-meta');
+  if(p&&!p.querySelector('.rpill'))p.insertAdjacentHTML('beforeend','<span class="pill rpill" style="color:#3fb950">✓ read</span>');
+}}
 function buildToc(){
   const toc=document.getElementById('toc');
   const hs=[...document.querySelectorAll('#content h2, #content h3')];
@@ -376,6 +388,9 @@ document.getElementById('search').addEventListener('input',function(){
   res.querySelectorAll('button[data-k]').forEach(b=>b.onclick=()=>{location.hash='#/'+b.dataset.k;res.style.display='none';document.getElementById('search').value='';});
 });
 document.addEventListener('click',e=>{if(!e.target.closest('#searchwrap'))document.getElementById('results').style.display='none';});
+document.getElementById('search').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){const first=document.querySelector('#results button[data-k]');if(first){location.hash='#/'+first.dataset.k;document.getElementById('results').style.display='none';e.target.value='';}}
+});
 document.getElementById('menu-btn').onclick=()=>document.getElementById('sidebar').classList.toggle('open');
 document.getElementById('nav').addEventListener('click',()=>document.getElementById('sidebar').classList.remove('open'));
 window.addEventListener('hashchange',render);
