@@ -481,7 +481,7 @@ themeBtn.id='theme-btn';themeBtn.setAttribute('aria-label','Toggle light mode');
 themeBtn.style.cssText='margin-left:8px;background:none;border:1px solid var(--border);color:var(--dim);border-radius:7px;padding:3px 9px;cursor:pointer;font-size:13px';
 themeBtn.title='Toggle light / dark';
 document.getElementById('pf-reset').parentNode.insertBefore(themeBtn,document.getElementById('pf-reset'));
-function applyTheme(t){document.documentElement.dataset.theme=t;localStorage.setItem('osint-theme',t);themeBtn.textContent=t==='light'?'☀':'☾';if(!themesUsed.includes(t)){themesUsed.push(t);localStorage.setItem('osint-themes-used',JSON.stringify(themesUsed));}if(typeof checkBadges==='function')checkBadges();}
+function applyTheme(t){document.documentElement.dataset.theme=t;localStorage.setItem('osint-theme',t);themeBtn.textContent=t==='light'?'☀':'☾';try{if(!themesUsed.includes(t)){themesUsed.push(t);localStorage.setItem('osint-themes-used',JSON.stringify(themesUsed));}}catch(err){}if(typeof checkBadges==='function')checkBadges();}
 applyTheme(localStorage.getItem('osint-theme')||(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));
 themeBtn.onclick=()=>applyTheme(document.documentElement.dataset.theme==='light'?'dark':'light');
 /* ================= v6 ENGINE ================= */
